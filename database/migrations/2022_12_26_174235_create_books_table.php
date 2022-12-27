@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('slug');
-            $table->bigInt('price');
+            $table->string('image');
+            $table->bigInteger('price');
             $table->foreignId('author_id')->constrained();
             $table->timestamps();
         });
