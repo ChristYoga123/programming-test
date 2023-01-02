@@ -1,7 +1,8 @@
 <div>
     <div>
-        <form action="{{ route("books.store") }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route("books.update", $book->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="ml-3 mb-3 flex flex-col">
                 <label for="title" class="text-lg font-semibold mb-2">Judul Buku</label>
                 <input type="text"
@@ -24,9 +25,9 @@
                 <label for="image" class="text-lg font-semibold mb-2">Gambar Buku</label>
                 @if ($book->image)
                     <img src="{{ asset('storage/'. $book->image) }}" class="image-preview block mb-2 rounded-md" width="300px">
-                    
                 @endif
                 <img class="image-preview block mb-2 rounded-md" width="300px">
+                <input type="hidden" name="old_image" value="{{ $book->image }}">
                 <input type="file" 
                        name="image"
                        id="image"
@@ -95,7 +96,9 @@
                         multiple="multiple"
                         >
                     @foreach ($genres as $genre)
-                        <option {{ $book->BookGenres()->where("book_id", $book->id) ? 'selected' : '' }} value="{{ $genre->id }}">{{ $genre->name }}</option>
+                        <option value="{{ $genre->id }}" {{ $book->BookGenres()->find($genre->id) ? 'selected' : '' }}>
+                            {{ $genre->name }}
+                        </option>
                     @endforeach
                 </select>
                 @error("genre_id")

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\CreateBookRequest;
+use App\Http\Requests\Book\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\BookGenre;
 use Illuminate\Http\Request;
@@ -88,9 +89,33 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        $data = $request->except("genre_id");
+
+        // Handling Slug & Image
+        $data["slug"] = Str::slug($data["title"]);
+
+        if($request->file("image"))
+        {
+            if($request->old_image)
+            {
+                Storage::delete($request->old_image);
+            }
+            $data["image"] = $request->file("image")->store("book/img", "public");
+        }
+
+        $book->update($data);
+        foreach($request->genre_id as $genre)
+        {
+            $book_genre[] = new BookGenre([
+                    "book_id" => $book->id,
+                    "genre_id" => $genre
+            ]);
+        }
+        $book->BookGenres()->delete();
+        $book->BookGenres()->saveMany($book_genre);
+        return redirect()->route("books.index")->with("success", "Data berhasil diubah");
     }
 
     /**

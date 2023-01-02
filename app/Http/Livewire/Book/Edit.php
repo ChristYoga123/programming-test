@@ -16,7 +16,7 @@ class Edit extends Component
         return view('livewire.book.edit')->with([
             "authors" => Author::all(),
             "genres" => Genre::all(),
-            "book" => Book::with("Author")->findOrFail($this->book_id)
+            "book" => Book::with(["Author", "BookGenres"])->findOrFail($this->book_id)
         ]);
     }
 }

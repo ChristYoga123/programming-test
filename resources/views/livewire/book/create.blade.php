@@ -10,7 +10,8 @@
                    class="input input-bordered input-primary w-full max-w-xs
                           @error("title")
                             input-error
-                          @enderror" />
+                          @enderror"
+                   value="{{ old("title") }}" />
             @error("title")
                 <small class="text-red-700">
                     {{ $message }}
@@ -45,7 +46,8 @@
                    class="input input-bordered input-primary w-full max-w-xs
                           @error("price")
                             input-error
-                          @enderror" />
+                          @enderror"
+                    value="{{ old("price") }}" />
             @error("price")
                 <small class="text-red-700">
                     {{ $message }}
