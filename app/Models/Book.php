@@ -20,4 +20,9 @@ class Book extends Model
     {
         return $this->hasMany(BookGenre::class);
     }
+
+    public function getImageAttribute($value)
+    {
+        return "storage/". $value;
+    }
 }

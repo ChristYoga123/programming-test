@@ -18,7 +18,7 @@
                         {{ $book->title }}
                     </td>
                     <td class="px-4 py-3 text-sm">
-                        {{ $book->image }}
+                        <img src="{{ asset($book->image) }}" alt="gambar {{ $book->title }}" width="200px">
                     </td>
                     <td class="px-4 py-3 text-sm">
                         {{ $book->price }}
@@ -29,7 +29,9 @@
                     <td class="px-4 py-3 text-sm">
                         <ul>
                             @foreach ($book->BookGenres as $genre)
-                                <li>{{ $genre->Genre->name }}</li>
+                                <li>
+                                    <i class="fa fa-circle"></i>  {{ $genre->Genre->name }}
+                                </li>
                             @endforeach
                         </ul>
                     </td>
@@ -40,10 +42,12 @@
                             </button>
                         </a>
 
-                        <form action="{{ route("books.destroy", $book->id) }}" class="inline">
+                        <form action="{{ route("books.destroy", $book->id) }}" class="inline" method="POST">
                             @csrf
                             @method("DELETE")
-                            <button class="btn btn-outline btn-error"></button>
+                            <button class="btn btn-outline btn-error">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>

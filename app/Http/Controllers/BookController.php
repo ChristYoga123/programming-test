@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Book\CreateBookRequest;
 use App\Models\Book;
+use App\Models\BookGenre;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 class BookController extends Controller
 {
     /**
@@ -33,9 +35,25 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateBookRequest $request)
     {
-        //
+        $data = $request->except("genre_id");
+
+        // Handling Slug & Image
+        $data["slug"] = Str::slug($data["title"]);
+        $data["image"] = $request->file("image")->store("book/img", "public");
+
+        $new_book = Book::create($data);
+        foreach($request->genre_id as $genre)
+        {
+            $book_genre[] = new BookGenre([
+                    "book_id" => $new_book->id,
+                    "genre_id" => $genre
+            ]);
+        }
+
+        $new_book->BookGenres()->saveMany($book_genre);
+        return redirect()->route("books.index")->with("success", "Data berhasil ditambah");
     }
 
     /**
