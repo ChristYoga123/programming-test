@@ -6,6 +6,7 @@ use App\Http\Requests\Book\CreateBookRequest;
 use App\Models\Book;
 use App\Models\BookGenre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 class BookController extends Controller
 {
@@ -98,6 +99,10 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        BookGenre::where('book_id', $book->id)->delete();
+        Storage::delete($book->image);
+        $book->delete();
+
+        return redirect()->route("books.index")->with("success", "Data berhasil dihapus");
     }
 }

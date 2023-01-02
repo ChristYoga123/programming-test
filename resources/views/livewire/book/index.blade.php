@@ -18,7 +18,7 @@
                         {{ $book->title }}
                     </td>
                     <td class="px-4 py-3 text-sm">
-                        <img src="{{ asset($book->image) }}" alt="gambar {{ $book->title }}" width="200px">
+                        <img src="{{ asset('storage/'.$book->image) }}" alt="gambar {{ $book->title }}" width="200px">
                     </td>
                     <td class="px-4 py-3 text-sm">
                         {{ $book->price }}
