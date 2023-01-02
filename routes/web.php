@@ -42,7 +42,7 @@ Route::middleware(['auth', 'role:Admin'])->prefix("admin")->group(function () {
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
     // Route Books
-    Route::resource('books', BookController::class)->except(['store', 'update', 'destroy']);
+    Route::resource('books', BookController::class);
     Route::resource('genres', GenreController::class)->except(['store', 'update', 'destroy', 'create', 'edit', 'show']);
     Route::resource('authors', AuthorController::class)->except(['store', 'update', 'destroy', 'create', 'edit', 'show']);
 });
