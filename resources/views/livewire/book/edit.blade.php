@@ -96,9 +96,11 @@
                         multiple="multiple"
                         >
                     @foreach ($genres as $genre)
-                        <option value="{{ $genre->id }}" {{ $book->BookGenres()->find($genre->id) ? 'selected' : '' }}>
-                            {{ $genre->name }}
-                        </option>
+                        @if (in_array($genre->id, $book_genre))
+                            <option value="{{ $genre->id }}" selected>
+                                {{ $genre->name }}
+                            </option>
+                        @endif
                     @endforeach
                 </select>
                 @error("genre_id")
@@ -119,8 +121,9 @@
             // Select2
             $(document).ready(function() {
                 $('#genre_id').select2();
+                // $('#genre_id').val({{ $book->genre_id }}).trigger("change");
             });
-    
+            
             // Preview Image
             function previewImage()
             {

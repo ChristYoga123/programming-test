@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Book;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\Author;
+use App\Models\BookGenre;
 use Livewire\Component;
 
 class Edit extends Component
@@ -16,7 +17,8 @@ class Edit extends Component
         return view('livewire.book.edit')->with([
             "authors" => Author::all(),
             "genres" => Genre::all(),
-            "book" => Book::with(["Author", "BookGenres"])->findOrFail($this->book_id)
+            "book" => Book::with("Author")->findOrFail($this->book_id),
+            "book_genre" => BookGenre::with("Book")->whereBookId($this->book_id)->get()->pluck("genre_id")->toArray()
         ]);
     }
 }
