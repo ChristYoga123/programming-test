@@ -10,6 +10,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <!-- Scripts -->
         <script src="{{ asset('js/init-alpine.js') }}"></script>
+        <link href="{{ asset('dist/css/select2.min.css') }}" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <script src="{{ asset('dist/js/select2.min.js') }}"></script>
+        <script src="https://kit.fontawesome.com/20da93977d.js" crossorigin="anonymous"></script>
         @livewireStyles
 </head>
 <body>

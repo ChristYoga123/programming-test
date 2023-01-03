@@ -3,7 +3,7 @@
 @import 'tailwindcss/utilities';
 
 .select2-container {
-  @apply rounded-md bg-white border border-gray-400;
+  @apply rounded-md bg-white border border-primary;
 }
 
 .select2-selection {
@@ -11,5 +11,5 @@
 }
 
 .select2-selection__arrow {
-  @apply block h-5 w-5 rounded-full bg-white border border-gray-400;
+  @apply block h-5 w-5 rounded-full bg-white border border-primary;
 }
