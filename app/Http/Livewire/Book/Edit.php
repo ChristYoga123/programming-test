@@ -18,7 +18,7 @@ class Edit extends Component
             "authors" => Author::all(),
             "genres" => Genre::all(),
             "book" => Book::with("Author")->findOrFail($this->book_id),
-            "book_genre" => BookGenre::with("Book")->whereBookId($this->book_id)->get()->pluck("genre_id")->toArray()
+            "book_genre" => BookGenre::whereBookId($this->book_id)->get()->pluck("genre_id")->toArray()
         ]);
     }
 }
