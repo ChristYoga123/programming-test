@@ -10,11 +10,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        // Get All Book {Default}
+        // Get All Book
         $book_all = Book::with(["Author", "BookGenres.Genre"])->paginate(5);
+        return ResponseFormatter::success($book_all, "Data berhasil didapat", Response::HTTP_OK);
+    }
 
+    public function show(Request $request)
+    {
         // Get Book By Column
         $id = $request->input("id");
         $title = $request->input("title");
@@ -78,6 +82,5 @@ class BookController extends Controller
                 return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
             }
         }
-        return ResponseFormatter::success($book_all, "Data berhasil didapat", Response::HTTP_OK);
     }
 }
