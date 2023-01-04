@@ -10,23 +10,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Get All Book
+        // Get All Data
         $book_all = Book::with(["Author", "BookGenres.Genre"])->paginate(5);
-        return ResponseFormatter::success($book_all, "Data berhasil didapat", Response::HTTP_OK);
-    }
 
-    public function show(Request $request)
-    {
-        // Get Book By Column
+        // Get By Column
         $id = $request->input("id");
         $title = $request->input("title");
         $author = $request->input("author");
         $price_from = $request->input("price_from");
         $price_to = $request->input("price_to");
-        $genres = explode("," , $request->input("genres"));
+        $genre = $request->input("genres");
+        $genres = explode("," , $genre);
 
+        // By Id
         if($id)
         {
             $book = Book::with(["Author", "BookGenres.Genre"])->find($id);
@@ -38,12 +36,14 @@ class BookController extends Controller
             
         }
 
+        // By Title
         if($title)
         {
             $book = Book::with(["Author", "BookGenres.Genre"])->where("title", "like" , "%" . $title . "%")->get();
             return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
         }
 
+        // By Author
         if($author)
         {
             $book = Book::with(["Author", "BookGenres.Genre"])->whereHas("Author", function($query) use ($author){
@@ -52,6 +52,7 @@ class BookController extends Controller
             return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
         }
 
+        // By Price
         if($price_from)
         {
             $book = Book::with(["Author", "BookGenres.Genre"])->where("price", ">=" , $price_from)->get();
@@ -72,15 +73,16 @@ class BookController extends Controller
             return ResponseFormatter::error("Data tidak ditemukan", Response::HTTP_NOT_FOUND);
         }
 
-        if($genres)
+        // By Genres
+        if($genre)
         {
             $book = Book::with(["Author", "BookGenres.Genre"])->whereHas("BookGenres.Genre", function($query) use ($genres){
                 $query->whereIn("name", $genres);
             })->get();
-            if($book)
-            {
-                return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
-            }
+            return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
         }
+
+        // Default Return All
+        return ResponseFormatter::success($book_all, "Data berhasil didapat", Response::HTTP_OK);
     }
 }
