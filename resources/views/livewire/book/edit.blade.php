@@ -72,9 +72,7 @@
                             "
                             >
                     @foreach ($authors as $author)
-                        @if ($author->id === $book->author_id)
-                            <option value="{{ $author->id }}" selected>{{ $author->name }}</option>
-                        @endif
+                        <option value="{{ $author->id }}" {{ $author->id === $book->author_id ? "selected" : "" }}>{{ $author->name }}</option>
                     @endforeach
                 </select>
                 @error("author_id")
@@ -96,11 +94,7 @@
                         multiple="multiple"
                         >
                     @foreach ($genres as $genre)
-                        @if (in_array($genre->id, $book_genre))
-                            <option value="{{ $genre->id }}" selected>
-                                {{ $genre->name }}
-                            </option>
-                        @endif
+                        <option value="{{ $genre->id }}" {{ in_array($genre->id, $book_genre) ? "selected" : "" }}>{{ $genre->name }}</option>
                     @endforeach
                 </select>
                 @error("genre_id")
