@@ -15,4 +15,9 @@ class Genre extends Model
     {
         return $this->hasMany(BookGenre::class);
     }
+
+    public function getNameAttribute($value)
+    {
+        return $value . "/" . trans("genre." . $value, [], "id");
+    }
 }
