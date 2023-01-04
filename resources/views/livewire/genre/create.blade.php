@@ -1,6 +1,5 @@
 <div>
     <form wire:submit.prevent="store" class="flex gap-3">
-        @csrf
         <div class="flex flex-col gap-2">
             <label for="name" class="font-semibold text-sm">Nama</label>
             <input type="text"

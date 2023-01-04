@@ -1,6 +1,5 @@
 <div>
     <form wire:submit.prevent="update" class="flex gap-3">
-        @csrf
         @method("PUT")
         <input type="hidden" wire:model="genreId">
         <div class="flex flex-col gap-2">
