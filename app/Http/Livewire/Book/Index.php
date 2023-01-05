@@ -18,7 +18,7 @@ class Index extends Component
            $genre_3;
     public function render()
     {
-                $books = Book::with(["Author", "BookGenres.Genre"]);
+        $books = Book::with(["Author", "BookGenres.Genre"]);
 
         if ($this->judul !== null || $this->genre_1 !== null || $this->genre_2 !== null || $this->genre_3 !== null) {
             $genres = [];
