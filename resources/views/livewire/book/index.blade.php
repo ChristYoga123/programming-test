@@ -9,33 +9,42 @@
         </select>
 
         <div class="flex gap-1 mr-1">
-            <input type="text"
-                   class="input border border-gray-300 w-full max-w-xs"
-                   wire:model="judul"
-                   placeholder="Masukkan judul">
-            <select class="select border border-gray-300 w-[170px] max-w-xs" 
-                    wire:model.lazy="genre_1">
-                <option value="" selected>Genre 1</option>
-                @foreach ($genres as $genre)
-                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                @endforeach
+            <p class="text-lg mt-2 mr-1">Filter</p>
+            <select wire:model="filter_by" class="select mr-1 mb-3 border border-gray-300">
+                <option value="judul">Judul</option>
+                <option value="genre">Genre</option>
             </select>
+            
+            @if ($filter_by === "judul")
+                <input type="text"
+                       class="input w-full max-w-xs border border-gray-300"
+                       wire:model="judul"
+                       placeholder="Ketikkan judul">
+            @else
+                <select wire:model="genre_1"
+                        class="select border border-gray-300 w-[150px]">
+                    <option value="" selected>Genre 1</option>
+                    @foreach ($genres as $genre)
+                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                    @endforeach
+                </select>
 
-            <select class="select border border-gray-300 w-[170px] max-w-xs"
-                    wire:model.lazy="genre_2">
-                <option value="" selected>Genre 2</option>
-                @foreach ($genres as $genre)
-                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                @endforeach
-            </select>
+                <select wire:model="genre_2"
+                        class="select border border-gray-300 w-[150px]">
+                    <option value="" selected>Genre 2</option>
+                    @foreach ($genres as $genre)
+                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                    @endforeach
+                </select>
 
-            <select class="select border border-gray-300 w-[170px] max-w-xs"
-                    wire:model.lazy="genre_3">
-                <option value selected>Genre 3</option>
-                @foreach ($genres as $genre)
-                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                @endforeach
-            </select>
+                <select wire:model="genre_3"
+                        class="select border border-gray-300 w-[150px]">
+                    <option value="" selected>Genre 3</option>
+                    @foreach ($genres as $genre)
+                        <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                    @endforeach
+                </select>
+            @endif
         </div>
     </div>
     <div class="overflow-x-auto w-full">
