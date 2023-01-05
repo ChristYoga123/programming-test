@@ -40,7 +40,10 @@ class BookController extends Controller
         if($title)
         {
             $book = Book::with(["Author", "BookGenres.Genre"])->where("title", "like" , "%" . $title . "%")->get();
-            return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
+            if(count($book) > 0) {
+                return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
+            } 
+            return ResponseFormatter::error("Tidak ada data dari Judul yang dicari", Response::HTTP_NOT_FOUND);
         }
 
         // By Author
@@ -49,7 +52,12 @@ class BookController extends Controller
             $book = Book::with(["Author", "BookGenres.Genre"])->whereHas("Author", function($query) use ($author){
                 $query->where("name", "like", "%". $author ."%");
             })->get();
-            return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
+            if(count($book) > 0)
+            {
+                return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
+            }
+            return ResponseFormatter::error("Tidak ada data dari Penulis yang dicari", Response::HTTP_NOT_FOUND);
+
         }
 
         // By Price
