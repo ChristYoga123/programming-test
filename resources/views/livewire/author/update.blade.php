@@ -11,7 +11,7 @@
                    @error("name")
                        input-error
                    @enderror"
-                   value="{{ old("name", $name) }}">
+                   >
             @error('name')
                 <small class="text-red-700">
                     {{ $message }}
@@ -19,6 +19,7 @@
             @enderror
                 </div>
         <button class="btn btn-outline btn-warning mt-7">Ubah</button>
+        <button type="button" wire:click="cancel()" class="btn btn-outline btn-error mt-7">Batal</button>
     </form>
 </div>
 

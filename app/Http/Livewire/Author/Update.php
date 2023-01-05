@@ -41,4 +41,10 @@ class Update extends Component
     {
         $this->name = null;
     }
+
+    public function cancel()
+    {
+        $statusUpdate = false;
+        $this->emit("cancelUpdated", $statusUpdate);
+    }
 }

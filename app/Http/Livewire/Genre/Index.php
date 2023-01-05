@@ -10,7 +10,8 @@ class Index extends Component
     public $statusUpdate = false;
     protected $listeners = [
         "genreStored" => "handleStored",
-        "genreUpdated" => "handleUpdated"
+        "genreUpdated" => "handleUpdated",
+        "cancelUpdated"
     ];
 
     public function render()
@@ -18,6 +19,11 @@ class Index extends Component
         return view('livewire.genre.index')->with([
             "genres" => Genre::latest()->paginate(10)
         ]);
+    }
+    
+    public function cancelUpdated($statusUpdate)
+    {
+        $this->statusUpdate = $statusUpdate;
     }
     
     public function handleStored($genre)

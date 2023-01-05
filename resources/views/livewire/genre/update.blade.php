@@ -19,5 +19,6 @@
             @enderror
                 </div>
         <button class="btn btn-outline btn-warning mt-7">Ubah</button>
+        <button wire:click="cancel()" type="button" class="btn btn-outline btn-error mt-7">Batal</button>
     </form>
 </div>

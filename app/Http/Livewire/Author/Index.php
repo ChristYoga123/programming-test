@@ -10,7 +10,8 @@ class Index extends Component
     public $authorId, $statusUpdate = false;
     protected $listeners = [
         "authorStored" => "handleStored",
-        "authorUpdated" => "handleUpdated"
+        "authorUpdated" => "handleUpdated",
+        "cancelUpdated"
     ];
     public function render()
     {
@@ -43,5 +44,9 @@ class Index extends Component
         session()->flash("success", "Data berhasil dihapus");
     }
 
+    public function cancelUpdated($statusUpdate)
+    {
+        $this->statusUpdate = $statusUpdate;
+    }
     
 }
