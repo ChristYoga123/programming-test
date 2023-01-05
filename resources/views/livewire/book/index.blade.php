@@ -1,4 +1,43 @@
 <div>
+    <hr class="my-5">
+
+    <div class="flex justify-between">
+        <select wire:model="paginate" class="select ml-1 mb-3 border border-gray-300">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+
+        <div class="flex gap-1 mr-1">
+            <input type="text"
+                   class="input border border-gray-300 w-full max-w-xs"
+                   wire:model="judul"
+                   placeholder="Masukkan judul">
+            <select class="select border border-gray-300 w-[170px] max-w-xs" 
+                    wire:model.lazy="genre_1">
+                <option value="" selected>Genre 1</option>
+                @foreach ($genres as $genre)
+                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                @endforeach
+            </select>
+
+            <select class="select border border-gray-300 w-[170px] max-w-xs"
+                    wire:model.lazy="genre_2">
+                <option value="" selected>Genre 2</option>
+                @foreach ($genres as $genre)
+                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                @endforeach
+            </select>
+
+            <select class="select border border-gray-300 w-[170px] max-w-xs"
+                    wire:model.lazy="genre_3">
+                <option value selected>Genre 3</option>
+                @foreach ($genres as $genre)
+                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
     <div class="overflow-x-auto w-full">
         <table class="w-full whitespace-no-wrap">
             <thead>

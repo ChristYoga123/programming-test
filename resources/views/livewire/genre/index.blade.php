@@ -24,6 +24,20 @@
         @endif
     </div>
 
+    <hr class="my-5">
+
+    <div class="flex justify-between">
+        <select wire:model="paginate" class="select ml-1 mb-3 border border-gray-300">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+
+        <input type="text"
+               class="input border border-gray-300 w-full max-w-sm"
+               wire:model="search">
+    </div>
+    
     <div class="overflow-x-auto w-full">
         <table class="w-full whitespace-no-wrap">
             <thead>

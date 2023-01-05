@@ -4,9 +4,13 @@ namespace App\Http\Livewire\Genre;
 
 use App\Models\Genre;
 use Livewire\Component;
-
+use Livewire\WithPagination;
 class Index extends Component
 {
+    use WithPagination;
+
+    public $paginate = 5;
+    public $search;
     public $statusUpdate = false;
     protected $listeners = [
         "genreStored" => "handleStored",
@@ -17,7 +21,9 @@ class Index extends Component
     public function render()
     {
         return view('livewire.genre.index')->with([
-            "genres" => Genre::latest()->paginate(10)
+            "genres" => $this->search === null ? 
+                Genre::latest()->paginate($this->paginate) :
+                Genre::latest()->where("name", "like" , "%".$this->search."%")->paginate($this->paginate)
         ]);
     }
     

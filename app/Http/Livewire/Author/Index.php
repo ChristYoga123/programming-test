@@ -4,9 +4,13 @@ namespace App\Http\Livewire\Author;
 
 use App\Models\Author;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+    public $paginate = 5;
+    public $search;
     public $authorId, $statusUpdate = false;
     protected $listeners = [
         "authorStored" => "handleStored",
@@ -16,7 +20,9 @@ class Index extends Component
     public function render()
     {
         return view('livewire.author.index')->with([
-            "authors" => Author::latest()->paginate(10)    
+            "authors" => $this->search === null ? 
+                Author::latest()->paginate($this->paginate) :
+                Author::latest()->where("name", "like" , "%".$this->search."%")->paginate($this->paginate)   
         ]);
     }
 
