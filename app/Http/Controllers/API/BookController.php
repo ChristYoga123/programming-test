@@ -79,7 +79,10 @@ class BookController extends Controller
             $book = Book::with(["Author", "BookGenres.Genre"])->whereHas("BookGenres.Genre", function($query) use ($genres){
                 $query->whereIn("name", $genres);
             })->get();
-            return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
+            if(count($book) > 0){
+                return ResponseFormatter::success($book, "Data berhasil didapat", Response::HTTP_OK);
+            }
+            return ResponseFormatter::error("Tidak ada Data berdasarkan Genre yang dicari", Response::HTTP_NOT_FOUND);
         }
 
         // Default Return All

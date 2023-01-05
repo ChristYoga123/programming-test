@@ -22,7 +22,7 @@ class ResponseFormatterController extends Controller
         self::$response["meta"]["message"] = $message;
         self::$response["data"] = $data;
 
-        return response()->json(self::$response);
+        return response()->json(self::$response, $code);
     }
 
     public static function error($message = null, $code = 400)
@@ -31,6 +31,6 @@ class ResponseFormatterController extends Controller
         self::$response["meta"]["code"] = $code;
         self::$response["meta"]["message"] = $message;
 
-        return response()->json(self::$response);
+        return response()->json(self::$response, $code);
     }
 }
