@@ -33,6 +33,7 @@ class Index extends Component
 
     public function handleUpdated($author)
     {
+        $this->statusUpdate = false;
         session()->flash("success", "Data berhasil diubah");
     }
 

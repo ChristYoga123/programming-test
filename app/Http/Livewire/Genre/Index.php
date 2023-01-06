@@ -39,6 +39,7 @@ class Index extends Component
 
     public function handleUpdated($genre)
     {
+        $this->statusUpdate = false;
         session()->flash("success", "Data berhasil diubah");
     }
 
