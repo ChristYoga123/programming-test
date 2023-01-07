@@ -12,9 +12,11 @@ git clone :via https/ssh
 cd project
 composer i
 cp .env.example .env // FILESYSTEM_DISK=public
+php artisan key:generate
 npm i
 npm run build
 npm run dev
+php artisan serve
 ```
 
 ### Feature
